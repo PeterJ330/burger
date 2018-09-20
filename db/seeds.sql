@@ -1,9 +1,4 @@
-USE burgers_db;
-INSERT INTO burgers (burger_name)
-VALUE ("Burger One");
 
-INSERT INTO burgers (burger_name)
-VALUE ("Burger Two");
-
-INSERT INTO burgers (burger_name)
-VALUE ("Burger Three");
+INSERT INTO burgers (burger_name) VALUES ("Burger One");
+INSERT INTO burgers (burger_name) VALUES ("Burger Two");
+INSERT INTO burgers (burger_name) VALUES ("Burger Three");
