@@ -23,8 +23,9 @@ $(function() {
 
         var newBurger = {
             burger_name: $("#burgerName").val().trim(),
-            devoured: $("[name=devoured]:checked").val().trim()
+            devoured: 0
         };
+        console.log(newBurger);
 
         $.ajax("/api/burgers", {
             type: "POST",
@@ -39,7 +40,6 @@ $(function() {
 
     $(".delete-burger").on("click", function(event) {
         var id = $(this).data("id");
-
         $.ajax("/api/burgers/" + id, {
             type: "DELETE"
         }).then(

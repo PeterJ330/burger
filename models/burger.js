@@ -1,4 +1,5 @@
-var orm = require("../config/orm");
+//importing ORM
+var orm = require("../config/orm.js");
 
 var burger = {
     all: function(cb) {
@@ -6,6 +7,7 @@ var burger = {
             cb(res);
         });
     },
+    //variables cols and vals are arrays
     create: function(cols, vals, cb) {
         orm.create("burgers", cols, vals, function(res) {
             cb(res);
@@ -23,5 +25,5 @@ var burger = {
     }
 };
 
-
+// Export the database functions for the controller (burgers_controllers.js).
 module.exports = burger; 

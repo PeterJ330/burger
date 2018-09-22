@@ -1,6 +1,6 @@
-var connection = require("../config/connection");
+var connection = require("../config/connection.js");
 
-function questionMarks(num) {
+function printQuestionMarks(num) {
     var arr = [];
     for (var i = 0; i < num; i++) {
         arr.push("?");
@@ -9,21 +9,22 @@ function questionMarks(num) {
     return arr.toString();
 }
 
-function objectToSql(ob) {
+function objToSql(ob) {
     var arr = [];
 
     for (var key in ob) {
         var value = ob[key];
         if(Object.hasOwnProperty.call(ob, key)) {
             if(typeof value === "string" && value.indexOf(" ") >=0) {
-                value = "'" + vallue + "'"
+                value = "'" + value + "'"
             }
             arr.push(key + "=" + value);
+            
         }
     }
 
     return arr.toString();
-}
+};
 
 var orm = {
     all: function(tableInput, cb) {
@@ -34,14 +35,14 @@ var orm = {
             }
             cb(result);
         });
-    },
+    }, //closes all
     create: function(table, cols, vals, cb) {
         var queryString = "INSERT INTO " + table;
         queryString += " (";
         queryString += cols.toString();
         queryString += ") ";
         queryString += "VALUES (";
-        queryString += questionMarks(vals.length);
+        queryString += printQuestionMarks(vals.length);
         queryString += ") ";
 
         console.log(queryString);
@@ -52,14 +53,17 @@ var orm = {
             }
             cb(result);
         });
-    },
+    }, //closes create
     update: function(table, objColVals, condition, cb) {
         var queryString = "UPDATE " + table;
 
         queryString += " SET ";
-        queryString += objectToSql(objColVals);
+        // queryString += objToSql(objColVals);
+        queryString += "devoured=true";
         queryString += " WHERE ";
         queryString += condition;
+
+        // $(this).attr('class', 'change-devoured').hide();
 
         console.log(queryString);
         connection.query(queryString, function(err, result) {
@@ -68,7 +72,7 @@ var orm = {
             }
             cb(result);
         });
-    },
+    }, //closes update
     delete: function(table, condition, cb) {
         var queryString = "DELETE FROM " + table;
         queryString += " WHERE ";
@@ -80,7 +84,7 @@ var orm = {
             }
             cb(result);
         });
-    }
+    } //closes delete
 };
 
 
